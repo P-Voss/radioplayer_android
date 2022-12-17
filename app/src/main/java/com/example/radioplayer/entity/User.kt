@@ -9,11 +9,12 @@ data class User (
 
     @SerializedName("id")
     var userId: Int = 0,
-
     var name: String = "",
-
     var password: String = "",
-
+    var fullname: String = "",
+    var twitterhandle: String = "",
+    var instagram: String = "",
+    var info: String = "",
+    var motto: String = "",
     var loginState: LoginState = LoginState.SIGNED_OFF,
-
 )

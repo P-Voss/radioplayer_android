@@ -3,10 +3,11 @@ package com.example.radioplayer.entity
 import java.text.SimpleDateFormat
 import java.util.*
 
-data class Feedback(
-    val score: Int = 1,
-    val comment: String = "",
+data class SongRequest(
+    val title: String = "",
+    val artist: String = "",
     val username: String = "",
+    val comment: String = "",
     val datetime: Date = Date()
 )
 {
@@ -15,3 +16,4 @@ data class Feedback(
         return dateFormat.format(datetime)
     }
 }
+
