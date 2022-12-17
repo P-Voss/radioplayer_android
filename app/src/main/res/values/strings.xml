@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">Radioplayer</string>
+    <string name="route_radioplayer">Radioplayer</string>
+    <string name="router_userfeedback">UserFeedback</string>
+    <string name="router_userrequest">UserRequest</string>
+    <string name="router_playlist">Playlist</string>
+    <string name="route_login">Login</string>
+    <string name="route_moderatordashboard">ModeratorDashboard</string>
+    <string name="route_moderatorfeedback">ModeratorFeedback</string>
+    <string name="route_playlistfeedback">PlaylistFeedback</string>
+    <string name="route_moderatorrequest">ModeratorRequest</string>
 </resources>
