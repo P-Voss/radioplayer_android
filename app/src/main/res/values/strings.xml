@@ -13,5 +13,11 @@
     <string name="route_moderatorrequest">ModeratorRequest</string>
     <string name="login_label_username">Username</string>
     <string name="login_label_password">Passwort</string>
-    <string name="login_label_login">Login</string>
+    <string name="login_label_submit">Login</string>
+
+    <string name="request_label_username">Username (optional)</string>
+    <string name="request_label_songname">Song</string>
+    <string name="request_label_artist">Künstler oder Gruppe</string>
+    <string name="request_label_comment">Kommentare oder Grüße</string>
+    <string name="request_label_submit">Liedwunsch speichern</string>
 </resources>

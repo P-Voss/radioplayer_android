@@ -98,7 +98,7 @@ fun LoginScreen(
                 }
             )
             {
-                Text(text = stringResource(R.string.login_label_login), style = MaterialTheme.typography.h2)
+                Text(text = stringResource(R.string.login_label_submit), style = MaterialTheme.typography.h2)
             }
         }
     }
