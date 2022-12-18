@@ -47,6 +47,9 @@ class RadioplayerViewModel: ViewModel() {
     var playerState by mutableStateOf(PlayerState.INACTIVE)
         private set
 
+    var currentSongInitialTimestamp: Int = 0
+        private set
+
     private fun startMediaplayer() {
         Log.d(TAG, "Start Mediaplayer")
         Log.d(TAG, playerState.name)
@@ -148,6 +151,8 @@ class RadioplayerViewModel: ViewModel() {
             if (result.success) {
                 _playlist.value = result.playlist
                 _currentSong.value = result.currentSong
+
+                currentSongInitialTimestamp = result.currentSong.lengthInSeconds - result.currentSong.remainingDuration
 
                 onUpdate()
             }
