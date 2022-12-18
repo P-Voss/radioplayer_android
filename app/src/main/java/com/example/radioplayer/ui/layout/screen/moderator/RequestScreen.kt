@@ -33,7 +33,6 @@ fun RequestScreen(
                 Text(text = "Song Requests", style = MaterialTheme.typography.h1, textAlign = TextAlign.Center)
                 LazyColumn(
                     modifier = Modifier
-                        .fillMaxHeight(0.7f)
                         .fillMaxWidth(),
                     verticalArrangement = Arrangement.spacedBy(8.dp),
                 )
