@@ -16,20 +16,32 @@ fun RequestScreen(
 ) {
     Column(
         modifier = Modifier
-            .fillMaxSize()
-            .padding(12.dp),
-    )
-    {
-        Text(text = "Song Requests", style = MaterialTheme.typography.h1, textAlign = TextAlign.Center)
-        LazyColumn(
-            modifier = Modifier
-                .fillMaxHeight(0.7f)
-                .fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(8.dp),
-        )
-        {
-            items(requests) {
-                    item: SongRequest -> RequestEntry(entry = item)
+            .fillMaxWidth()
+            .fillMaxHeight(0.9f)
+            .padding(12.dp)
+    ) {
+        Card(
+            modifier = Modifier.fillMaxSize(),
+            backgroundColor = MaterialTheme.colors.primaryVariant
+        ) {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(12.dp),
+            )
+            {
+                Text(text = "Song Requests", style = MaterialTheme.typography.h1, textAlign = TextAlign.Center)
+                LazyColumn(
+                    modifier = Modifier
+                        .fillMaxHeight(0.7f)
+                        .fillMaxWidth(),
+                    verticalArrangement = Arrangement.spacedBy(8.dp),
+                )
+                {
+                    items(requests) {
+                            item: SongRequest -> RequestEntry(entry = item)
+                    }
+                }
             }
         }
     }
@@ -49,10 +61,9 @@ fun RequestEntry(entry: SongRequest) {
         ) {
             Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
                 Row(
-                    horizontalArrangement = Arrangement.SpaceBetween,
+                    horizontalArrangement = Arrangement.SpaceEvenly,
                     modifier = Modifier.fillMaxWidth()
                 ) {
-                    Text(text = "Hörer")
                     Text(text = entry.username, style = MaterialTheme.typography.h3)
                     Text(text = "wünscht sich")
                 }

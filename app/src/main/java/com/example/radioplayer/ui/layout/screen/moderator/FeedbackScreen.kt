@@ -23,19 +23,31 @@ fun FeedbackScreen(
 ) {
     Column(
         modifier = Modifier
-            .fillMaxSize()
-            .padding(12.dp),
-    )
-    {
-        Text(text = headline, style = MaterialTheme.typography.h1, textAlign = TextAlign.Center)
-        LazyColumn(
-            modifier = Modifier
-                .fillMaxSize(),
-            verticalArrangement = Arrangement.spacedBy(8.dp),
-        )
-        {
-            items(feedbackList) {
-                    item: Feedback -> FeedbackEntry(entry = item)
+            .fillMaxWidth()
+            .fillMaxHeight(0.9f)
+            .padding(12.dp)
+    ) {
+        Card(
+            modifier = Modifier.fillMaxSize(),
+            backgroundColor = MaterialTheme.colors.primaryVariant
+        ) {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(12.dp),
+            )
+            {
+                Text(text = headline, style = MaterialTheme.typography.h1, textAlign = TextAlign.Center)
+                LazyColumn(
+                    modifier = Modifier
+                        .fillMaxSize(),
+                    verticalArrangement = Arrangement.spacedBy(8.dp),
+                )
+                {
+                    items(feedbackList) {
+                            item: Feedback -> FeedbackEntry(entry = item)
+                    }
+                }
             }
         }
     }
