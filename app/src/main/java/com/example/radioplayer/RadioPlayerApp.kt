@@ -26,6 +26,7 @@ import com.example.radioplayer.ui.layout.screen.moderator.DashboardScreen
 import com.example.radioplayer.ui.layout.screen.moderator.FeedbackScreen
 import com.example.radioplayer.ui.layout.screen.moderator.RequestScreen
 import com.example.radioplayer.ui.layout.screen.user.LoginScreen
+import com.example.radioplayer.ui.layout.screen.user.SongrequestScreen
 
 
 enum class RadioplayerScreen(@StringRes val title: Int) {
@@ -58,6 +59,18 @@ fun RadioplayerApp(
         composable(route = RadioplayerScreen.Radioplayer.name) {
             Layout(
                 content = { RadioplayerScreen(radioplayerViewModel = radioplayerViewModel) },
+                playerState = playerState,
+                bottomBar = { BottomBarUser(navController = navController) },
+                topBar = { UserTopBar(
+                    onHomeClick = { navController.navigate(RadioplayerScreen.Radioplayer.name) },
+                    onLoginClick = { navController.navigate(RadioplayerScreen.Login.name) },
+                ) },
+                onTogglePlayer = { radioplayerViewModel.toggleMediaplayer() }
+            )
+        }
+        composable(route = RadioplayerScreen.UserRequest.name) {
+            Layout(
+                content = { SongrequestScreen() },
                 playerState = playerState,
                 bottomBar = { BottomBarUser(navController = navController) },
                 topBar = { UserTopBar(
