@@ -49,7 +49,8 @@ fun UserBottomBar(
                 selected = false,
                 onClick = { onFeedbackClick() },
                 icon = { Icon(imageVector = Icons.Filled.Info, contentDescription = "Info")},
-                label = { Text(text = "Info") }
+                label = { Text(text = "Info") },
+                enabled = false
             )
         }
     }

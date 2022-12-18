@@ -45,7 +45,8 @@ fun ModeratorBottomBar(
                 selected = false,
                 onClick = { onModerationFeedbackClick() },
                 icon = { Icon(imageVector = Icons.Filled.Info, contentDescription = "Info") },
-                label = { Text(text = "Info") }
+                label = { Text(text = "Info") },
+                enabled = false
             )
         }
     }
