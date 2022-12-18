@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">Radioplayer</string>
+    <string name="headline"><![CDATA[Radio Rock >:]]]></string>
+
     <string name="route_radioplayer">Radioplayer</string>
     <string name="router_userfeedback">UserFeedback</string>
     <string name="router_userrequest">UserRequest</string>
@@ -9,4 +11,7 @@
     <string name="route_moderatorfeedback">ModeratorFeedback</string>
     <string name="route_playlistfeedback">PlaylistFeedback</string>
     <string name="route_moderatorrequest">ModeratorRequest</string>
+    <string name="login_label_username">Username</string>
+    <string name="login_label_password">Passwort</string>
+    <string name="login_label_login">Login</string>
 </resources>

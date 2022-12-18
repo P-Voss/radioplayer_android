@@ -1,7 +1,5 @@
 package com.example.radioplayer
 
-import android.media.AudioAttributes
-import android.media.MediaPlayer
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -16,7 +14,6 @@ import com.example.radioplayer.ui.viewModel.RadioplayerViewModel
 
 class MainActivity : ComponentActivity() {
 
-    private val mediaPlayer: MediaPlayer = MediaPlayer()
 
     private val radioplayerViewModel: RadioplayerViewModel by viewModels()
 
