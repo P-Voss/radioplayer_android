@@ -9,7 +9,8 @@ import com.example.radioplayer.ui.theme.colors.GreenColors
 
 @Composable
 fun RadioplayerTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable () -> Unit) {
-    val colors = BlueColors.getMainPalette()
+//    val colors = BlueColors.getMainPalette()
+    val colors = GreenColors.getMainPalette()
 
     MaterialTheme(
         colors = colors,

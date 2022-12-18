@@ -41,12 +41,12 @@ val Typography = Typography(
     body1 = TextStyle(
         fontFamily = Montserrat,
         fontWeight = FontWeight.Normal,
-        fontSize = 14.sp
+        fontSize = 18.sp
     ),
     body2 = TextStyle(
         fontFamily = Montserrat,
-        fontWeight = FontWeight.Normal,
-        fontSize = 10.sp
+        fontWeight = FontWeight.Bold,
+        fontSize = 12.sp
     ),
     h4 = TextStyle(
         fontFamily = Montserrat,

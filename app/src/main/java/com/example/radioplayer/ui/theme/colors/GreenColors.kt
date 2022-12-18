@@ -25,9 +25,10 @@ object GreenColors {
     fun getMainPalette(): Colors {
         return lightColors(
             primary = PrimaryColor,
-            primaryVariant = PrimaryLightColor,
+            primaryVariant = PrimaryLightColor.copy(alpha = 0.7f),
             secondary = SecondaryColor,
             secondaryVariant = SecondaryLightColor,
+//            surface = PrimaryDarkColor,
             surface = PrimaryDarkColor,
             onSurface = PrimaryTextColor,
             onPrimary = PrimaryTextColor,
