@@ -1,16 +1,12 @@
 package com.example.radioplayer.ui.layout.components
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material.MaterialTheme
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.CornerSize
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.LibraryMusic
-import androidx.compose.material.icons.filled.PlaylistAdd
-import androidx.compose.material.icons.filled.QueueMusic
-import androidx.compose.material.icons.filled.StarRate
+import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -23,35 +19,38 @@ fun UserBottomBar(
     onRequestClick: () -> Unit,
     onFeedbackClick: () -> Unit,
 ) {
-    Row(
-        modifier = Modifier
-            .background(color = MaterialTheme.colors.secondary)
-            .padding(12.dp)
-            .fillMaxHeight(0.1f),
-        verticalAlignment = Alignment.CenterVertically
+    BottomAppBar(
+        elevation = 12.dp,
+        cutoutShape = CircleShape,
+        backgroundColor = MaterialTheme.colors.secondary
     ) {
-
-        BottomBarButton(
-            icon = Icons.Filled.PlaylistAdd,
-            label = "Wünsche",
-            onClick = onRequestClick
-        )
-
-        Spacer(modifier = Modifier.weight(1f))
-
-        BottomBarButton(
-//            icon = Icons.Filled.QueueMusic,
-            icon = Icons.Filled.LibraryMusic,
-            label = "Playlist",
-            onClick = onPlaylistClick
-        )
-
-        Spacer(modifier = Modifier.weight(1f))
-
-        BottomBarButton(
-            icon = Icons.Filled.StarRate,
-            label = "Bewertung",
-            onClick = onFeedbackClick
-        )
+        Row(
+            horizontalArrangement = Arrangement.Start
+        ) {
+            BottomNavigationItem(
+                selected = false,
+                onClick = { onRequestClick() },
+                icon = { Icon(imageVector = Icons.Filled.PlaylistAdd, contentDescription = "Wünsche")},
+                label = { Text(text = "Wünsche") }
+            )
+            BottomNavigationItem(
+                selected = false,
+                onClick = { onPlaylistClick() },
+                icon = { Icon(imageVector = Icons.Filled.LibraryMusic, contentDescription = "Playlist")},
+                label = { Text(text = "Playlist") }
+            )
+            BottomNavigationItem(
+                selected = false,
+                onClick = { onFeedbackClick() },
+                icon = { Icon(imageVector = Icons.Filled.StarRate, contentDescription = "Bewertung")},
+                label = { Text(text = "Bewertung") }
+            )
+            BottomNavigationItem(
+                selected = false,
+                onClick = { onFeedbackClick() },
+                icon = { Icon(imageVector = Icons.Filled.Info, contentDescription = "Info")},
+                label = { Text(text = "Info") }
+            )
+        }
     }
 }

@@ -33,22 +33,25 @@ fun Layout(
                         Icon(
                             Icons.Filled.Stop,
                             contentDescription = "",
-                            tint = MaterialTheme.colors.secondaryVariant,
+                            tint = MaterialTheme.colors.secondary,
+//                            tint = MaterialTheme.colors.primaryVariant,
                             modifier = Modifier.background(color = MaterialTheme.colors.error.copy(alpha = 0.0f))
                         )
                     } else {
                         Icon(
                             Icons.Filled.PlayArrow,
                             contentDescription = "",
-                            tint = MaterialTheme.colors.primaryVariant,
+                            tint = MaterialTheme.colors.secondary,
+//                            tint = MaterialTheme.colors.primaryVariant,
                             modifier = Modifier.background(color = MaterialTheme.colors.surface.copy(alpha = 0.0f))
                         )
                     }
                 },
                 onClick = { onTogglePlayer() },
+                backgroundColor = MaterialTheme.colors.primary
             )
         },
         floatingActionButtonPosition = FabPosition.Center,
-//        isFloatingActionButtonDocked = true,
+        isFloatingActionButtonDocked = true,
     )
 }
