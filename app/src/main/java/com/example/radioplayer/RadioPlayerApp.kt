@@ -14,7 +14,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.example.radioplayer.ui.layout.screen.user.RadioplayerScreen
 import com.example.radioplayer.ui.viewModel.ModeratorViewModel
 import com.example.radioplayer.ui.viewModel.RadioplayerViewModel
 import com.example.radioplayer.ui.layout.Layout
@@ -25,8 +24,7 @@ import com.example.radioplayer.ui.layout.components.UserTopBar
 import com.example.radioplayer.ui.layout.screen.moderator.DashboardScreen
 import com.example.radioplayer.ui.layout.screen.moderator.FeedbackScreen
 import com.example.radioplayer.ui.layout.screen.moderator.RequestScreen
-import com.example.radioplayer.ui.layout.screen.user.LoginScreen
-import com.example.radioplayer.ui.layout.screen.user.SongrequestScreen
+import com.example.radioplayer.ui.layout.screen.user.*
 
 
 enum class RadioplayerScreen(@StringRes val title: Int) {
@@ -50,6 +48,7 @@ fun RadioplayerApp(
 )
 {
     val playerState = radioplayerViewModel.playerState
+    val playlist = radioplayerViewModel.playlist.collectAsState().value
 
     NavHost(
         navController = navController,
@@ -71,6 +70,30 @@ fun RadioplayerApp(
         composable(route = RadioplayerScreen.UserRequest.name) {
             Layout(
                 content = { SongrequestScreen() },
+                playerState = playerState,
+                bottomBar = { BottomBarUser(navController = navController) },
+                topBar = { UserTopBar(
+                    onHomeClick = { navController.navigate(RadioplayerScreen.Radioplayer.name) },
+                    onLoginClick = { navController.navigate(RadioplayerScreen.Login.name) },
+                ) },
+                onTogglePlayer = { radioplayerViewModel.toggleMediaplayer() }
+            )
+        }
+        composable(route = RadioplayerScreen.Playlist.name) {
+            Layout(
+                content = { PlaylistScreen(playlist) },
+                playerState = playerState,
+                bottomBar = { BottomBarUser(navController = navController) },
+                topBar = { UserTopBar(
+                    onHomeClick = { navController.navigate(RadioplayerScreen.Radioplayer.name) },
+                    onLoginClick = { navController.navigate(RadioplayerScreen.Login.name) },
+                ) },
+                onTogglePlayer = { radioplayerViewModel.toggleMediaplayer() }
+            )
+        }
+        composable(route = RadioplayerScreen.UserFeedback.name) {
+            Layout(
+                content = { RateScreen() },
                 playerState = playerState,
                 bottomBar = { BottomBarUser(navController = navController) },
                 topBar = { UserTopBar(
