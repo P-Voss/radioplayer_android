@@ -5,29 +5,27 @@ import androidx.compose.material.lightColors
 import androidx.compose.ui.graphics.Color
 
 
-object BlueColors {
 
-    val PrimaryColor = Color(0xFF00b8d4)
-    val PrimaryLightColor = Color(0xFF62ebff)
-    val PrimaryDarkColor = Color(0xFF0088a3)
+object DarkColors {
+    val PrimaryColor = Color(0xFF191956)
+    val PrimaryLightColor = Color(0xFF7d7dcb)
+    val PrimaryDarkColor = Color(0xFF020218)
 
-    val SecondaryColor = Color(0xFF7cb342)
-    val SecondaryLightColor = Color(0xFFaee571)
-    val SecondaryDarkColor = Color(0xFF4b830d)
+    val SecondaryColor = Color(0xFF060662)
+    val SecondaryLightColor = Color(0xFF37a8a8)
+    val SecondaryDarkColor = Color(0xFF1d3137)
 
-    val PrimaryTextColor = Color(0xFF212121)
-    val SecondaryTextColor = Color(0xFF000000)
+    val PrimaryTextColor = Color(0xFFF3EDED)
+    val SecondaryTextColor = Color(0xFFF3EDED)
 
-    val ErrorSurfaceColor = Color(0xFFff4d4d)
-    val ErrorPrimaryColor = Color(0xFFe60000)
-    val ErrorSecondaryColor = Color(0xFFff3333)
 
     fun getMainPalette(): Colors {
         return lightColors(
             primary = PrimaryColor,
-            primaryVariant = PrimaryLightColor,
+            primaryVariant = PrimaryLightColor.copy(alpha = 0.7f),
             secondary = SecondaryColor,
             secondaryVariant = SecondaryLightColor,
+//            surface = PrimaryDarkColor,
             surface = PrimaryDarkColor,
             onSurface = PrimaryTextColor,
             onPrimary = PrimaryTextColor,

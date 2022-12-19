@@ -36,18 +36,4 @@ object GreenColors {
             background = Color.LightGray
         )
     }
-
-    fun getErrorPalette(): Colors {
-        return lightColors(
-            primary = ErrorPrimaryColor,
-            primaryVariant = PrimaryLightColor,
-            secondary = ErrorSecondaryColor,
-            secondaryVariant = SecondaryLightColor,
-            surface = ErrorSurfaceColor,
-            onSurface = PrimaryTextColor,
-            onPrimary = PrimaryTextColor,
-            onSecondary = SecondaryTextColor,
-            background = Color.LightGray
-        )
-    }
 }

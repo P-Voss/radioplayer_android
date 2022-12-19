@@ -4,13 +4,15 @@ import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import com.example.radioplayer.ui.theme.colors.BlueColors
+import com.example.radioplayer.ui.theme.colors.DarkColors
 import com.example.radioplayer.ui.theme.colors.GreenColors
 
 
 @Composable
 fun RadioplayerTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable () -> Unit) {
 //    val colors = BlueColors.getMainPalette()
-    val colors = GreenColors.getMainPalette()
+//    val colors = GreenColors.getMainPalette()
+    val colors = DarkColors.getMainPalette()
 
     MaterialTheme(
         colors = colors,
