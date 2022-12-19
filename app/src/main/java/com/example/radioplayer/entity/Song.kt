@@ -1,6 +1,7 @@
 package com.example.radioplayer.entity
 
-import java.util.Date
+import java.text.SimpleDateFormat
+import java.util.*
 
 data class Song(
     var title: String = "",
@@ -15,3 +16,9 @@ data class Song(
     var streamUrl: String = "",
     var imageUrl: String = "",
 )
+{
+    fun getStartTime(): String {
+        val dateFormat = SimpleDateFormat("HH:mm:ss", Locale.GERMANY)
+        return dateFormat.format(startDateTime)
+    }
+}
