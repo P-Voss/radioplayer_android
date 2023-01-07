@@ -62,6 +62,7 @@ fun LoginScreen(
                     onNext = { focusManager.moveFocus(FocusDirection.Down) }
                 ),
                 modifier = Modifier.fillMaxWidth().background(color = Color.White),
+                colors = TextFieldDefaults.textFieldColors(textColor = Color.Black)
             )
 
             Spacer(modifier = Modifier.height(8.dp))
@@ -87,6 +88,7 @@ fun LoginScreen(
                 ),
                 visualTransformation = PasswordVisualTransformation(),
                 modifier = Modifier.fillMaxWidth().background(color = Color.White),
+                colors = TextFieldDefaults.textFieldColors(textColor = Color.Black)
             )
             Spacer(modifier = Modifier.height(8.dp))
 

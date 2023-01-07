@@ -59,6 +59,7 @@ fun SongrequestScreen(songrequestViewModel: SongrequestViewModel = SongrequestVi
                 modifier = Modifier
                     .fillMaxWidth()
                     .background(Color.White, RoundedCornerShape(5.dp)),
+                colors = TextFieldDefaults.textFieldColors(textColor = Color.Black)
             )
 
             OutlinedTextField(
@@ -77,7 +78,8 @@ fun SongrequestScreen(songrequestViewModel: SongrequestViewModel = SongrequestVi
                 ),
                 modifier = Modifier
                     .fillMaxWidth()
-                    .background(Color.White, RoundedCornerShape(5.dp))
+                    .background(Color.White, RoundedCornerShape(5.dp)),
+                colors = TextFieldDefaults.textFieldColors(textColor = Color.Black)
             )
 
             OutlinedTextField(
@@ -96,7 +98,8 @@ fun SongrequestScreen(songrequestViewModel: SongrequestViewModel = SongrequestVi
                 ),
                 modifier = Modifier
                     .fillMaxWidth()
-                    .background(Color.White, RoundedCornerShape(5.dp))
+                    .background(Color.White, RoundedCornerShape(5.dp)),
+                colors = TextFieldDefaults.textFieldColors(textColor = Color.Black)
             )
 
             OutlinedTextField(
@@ -115,8 +118,10 @@ fun SongrequestScreen(songrequestViewModel: SongrequestViewModel = SongrequestVi
                     onDone = { songrequestViewModel.attemptSave(onSave = {successToast.show()}, onError = {errorToast.show()}) }
                 ),
                 modifier = Modifier
-                    .fillMaxWidth().height(120.dp)
-                    .background(Color.White, RoundedCornerShape(5.dp))
+                    .fillMaxWidth()
+                    .height(120.dp)
+                    .background(Color.White, RoundedCornerShape(5.dp)),
+                colors = TextFieldDefaults.textFieldColors(textColor = Color.Black)
             )
 
             Button(onClick = { songrequestViewModel.attemptSave(onSave = {successToast.show()}, onError = {errorToast.show()}) }) {
