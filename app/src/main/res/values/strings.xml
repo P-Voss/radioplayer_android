@@ -3,9 +3,11 @@
     <string name="headline"><![CDATA[Radio Rock >:]]]></string>
 
     <string name="route_radioplayer">Radioplayer</string>
-    <string name="router_userfeedback">UserFeedback</string>
+    <string name="router_rateplaylist">RatePlaylist</string>
+    <string name="router_ratemoderation">RateModeration</string>
     <string name="router_userrequest">UserRequest</string>
     <string name="router_playlist">Playlist</string>
+    <string name="router_moderation">Moderation</string>
     <string name="route_login">Login</string>
     <string name="route_moderatordashboard">ModeratorDashboard</string>
     <string name="route_moderatorfeedback">ModeratorFeedback</string>
@@ -20,4 +22,20 @@
     <string name="request_label_artist">Künstler oder Gruppe</string>
     <string name="request_label_comment">Kommentare oder Grüße</string>
     <string name="request_label_submit">Liedwunsch speichern</string>
+
+    <string name="toast_feedback_saved">Dein Feedback wurde gespeichert!</string>
+    <string name="feedback_label_comment">Kommentar (Optional)</string>
+    <string name="feedback_label_username">Dein Name (Optional)</string>
+    <string name="feedback_label_submit">Bewertung speichern</string>
+    <string name="feedback_headline">Sag uns deine Meinung!</string>
+    <string name="feedback_label_playlist">Playlist bewerten</string>
+    <string name="feedback_label_moderation">Moderation bewerten</string>
+    <string name="feedback_one">Mies!</string>
+    <string name="feedback_two">Schlecht.</string>
+    <string name="feedback_three">Ganz ok...</string>
+    <string name="feedback_four">Sehr gut!</string>
+    <string name="feedback_five">Super!</string>
+
+    <string name="playlist_current_playlist_label">\"Aktuelle Playlist: \"</string>
+    <string name="playlist_moderation_label">Moderiert von</string>
 </resources>

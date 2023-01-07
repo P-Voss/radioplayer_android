@@ -12,7 +12,7 @@ data class User (
     var name: String = "",
     var password: String = "",
     var fullname: String = "",
-    var twitterhandle: String = "",
+    var twitterHandle: String = "",
     var instagram: String = "",
     var info: String = "",
     var motto: String = "",

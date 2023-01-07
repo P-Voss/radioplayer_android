@@ -5,6 +5,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class Playlist(
     var theme: String = "",
+    var description: String = "",
     var moderator: User = User(),
     var recentSongs: List<Song> = mutableListOf()
 )
