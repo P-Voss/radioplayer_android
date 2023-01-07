@@ -1,5 +1,6 @@
 package com.example.radioplayer.ui.viewModel
 
+import android.nfc.Tag
 import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -34,9 +35,9 @@ class ModeratorViewModel: ViewModel() {
     private val _songrequests = MutableStateFlow<MutableList<SongRequest>>(mutableListOf())
     val songrequests: StateFlow<List<SongRequest>> = _songrequests.asStateFlow()
 
-    private var mostRecentModerationFeedback by mutableStateOf(Date(1))
-    private var mostRecentPlaylistFeedback by mutableStateOf(Date(1))
-    private var mostSongRequest by mutableStateOf(Date(1))
+    private var mostRecentModerationFeedback by mutableStateOf(1f)
+    private var mostRecentPlaylistFeedback by mutableStateOf(1f)
+    private var mostRecentSongRequest by mutableStateOf(1f)
 
     var loginnameInput by mutableStateOf("")
         private set
@@ -109,36 +110,36 @@ class ModeratorViewModel: ViewModel() {
 
                     if (result.playlistFeedback.isNotEmpty()) {
                         val playlistFeedback = result.playlistFeedback
-                        if (playlistFeedback.last().datetime.time > mostRecentPlaylistFeedback.time) {
+                        if (playlistFeedback.first().datetime.time.toFloat() > mostRecentPlaylistFeedback) {
                             var newFeedback: MutableList<Feedback> = mutableListOf()
                             newFeedback.addAll(0, playlistFeedback)
                             _playlistFeedback.value = newFeedback
 
-                            mostRecentPlaylistFeedback = playlistFeedback.last().datetime
+                            mostRecentPlaylistFeedback = playlistFeedback.last().datetime.time.toFloat()
                             onDashboardUpdate("Neues Feedback zur Playlist erhalten!")
                         }
                     }
 
                     if (result.moderationFeedback.isNotEmpty()) {
                         val moderationFeedback = result.moderationFeedback
-                        if (moderationFeedback.last().datetime.time > mostRecentModerationFeedback.time) {
+                        if (moderationFeedback.first().datetime.time.toFloat()  > mostRecentModerationFeedback) {
                             var newFeedback: MutableList<Feedback> = mutableListOf()
                             newFeedback.addAll(0, moderationFeedback)
                             _moderationFeedback.value = newFeedback
 
-                            mostRecentModerationFeedback = moderationFeedback.last().datetime
+                            mostRecentModerationFeedback = moderationFeedback.last().datetime.time.toFloat()
                             onDashboardUpdate("Neues Feedback zur Moderation erhalten!")
                         }
                     }
 
                     if (result.songRequests.isNotEmpty()) {
                         val songRequests = result.songRequests
-                        if (songRequests.last().datetime.time > mostSongRequest.time) {
+                        if (songRequests.first().datetime.time.toFloat()  > mostRecentSongRequest) {
                             val newRequests: MutableList<SongRequest> = mutableListOf()
                             newRequests.addAll(0, songRequests)
                             _songrequests.value = newRequests
 
-                            mostSongRequest = songRequests.last().datetime
+                            mostRecentSongRequest = songRequests.last().datetime.time.toFloat()
                             onDashboardUpdate("Neuer Wunsch!")
                         }
                     }
