@@ -10,6 +10,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.radioplayer.Enums.PlayerState
+import com.example.radioplayer.entity.Feedback
 import com.example.radioplayer.entity.Playlist
 import com.example.radioplayer.entity.Song
 import com.example.radioplayer.network.RadioplayerApi
@@ -156,6 +157,40 @@ class RadioplayerViewModel: ViewModel() {
 
                 onUpdate()
             }
+        }
+    }
+
+    fun sendPlaylistFeedback(score: Int, comment: String = "", username: String = "", onCompleted: () -> Unit) {
+        val payload = Feedback(score = score, comment = comment, username = normalizeUsername(username))
+        viewModelScope.launch {
+            Log.d(TAG, "Attempting Request")
+            val result = RadioplayerApi.retrofitService.postPlaylistFeedback(payload).await()
+            Log.d(TAG, "Attempting Request")
+            Log.d(TAG, result.toString())
+            if (result.success) {
+                onCompleted()
+            }
+        }
+    }
+
+    fun sendModerationFeedback(score: Int, comment: String = "", username: String = "", onCompleted: () -> Unit) {
+        val payload = Feedback(score = score, comment = comment, username = normalizeUsername(username))
+        viewModelScope.launch {
+            Log.d(TAG, "Attempting Request")
+            val result = RadioplayerApi.retrofitService.postModerationFeedback(payload).await()
+            Log.d(TAG, "Attempting Request")
+            Log.d(TAG, result.toString())
+            if (result.success) {
+                onCompleted()
+            }
+        }
+    }
+
+    private fun normalizeUsername(username: String = ""): String {
+        return if (username == "") {
+            "anonym"
+        } else {
+            username
         }
     }
 
