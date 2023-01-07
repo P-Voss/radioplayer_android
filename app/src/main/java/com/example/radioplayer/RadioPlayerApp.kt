@@ -29,9 +29,11 @@ import com.example.radioplayer.ui.layout.screen.user.*
 
 enum class RadioplayerScreen(@StringRes val title: Int) {
     Radioplayer(title = R.string.route_radioplayer),
-    UserFeedback(title = R.string.router_userfeedback),
+    RatePlaylist(title = R.string.router_rateplaylist),
+    RateModeration(title = R.string.router_ratemoderation),
     UserRequest(title = R.string.router_userrequest),
     Playlist(title = R.string.router_playlist),
+    Moderation(title = R.string.router_moderation),
     Login(title = R.string.route_login),
     ModeratorDashboard(title = R.string.route_moderatordashboard),
     ModeratorFeedback(title = R.string.route_moderatorfeedback),
@@ -81,7 +83,7 @@ fun RadioplayerApp(
         }
         composable(route = RadioplayerScreen.Playlist.name) {
             Layout(
-                content = { PlaylistScreen(playlist) },
+                content = { PlaylistScreen(playlist = playlist, onRate = {navController.navigate(RadioplayerScreen.RatePlaylist.name)}) },
                 playerState = playerState,
                 bottomBar = { BottomBarUser(navController = navController) },
                 topBar = { UserTopBar(
@@ -91,9 +93,33 @@ fun RadioplayerApp(
                 onTogglePlayer = { radioplayerViewModel.toggleMediaplayer() }
             )
         }
-        composable(route = RadioplayerScreen.UserFeedback.name) {
+        composable(route = RadioplayerScreen.Moderation.name) {
             Layout(
-                content = { RateScreen() },
+                content = { ModerationScreen(moderator = playlist.moderator, onRate = {navController.navigate(RadioplayerScreen.RateModeration.name)}) },
+                playerState = playerState,
+                bottomBar = { BottomBarUser(navController = navController) },
+                topBar = { UserTopBar(
+                    onHomeClick = { navController.navigate(RadioplayerScreen.Radioplayer.name) },
+                    onLoginClick = { navController.navigate(RadioplayerScreen.Login.name) },
+                ) },
+                onTogglePlayer = { radioplayerViewModel.toggleMediaplayer() }
+            )
+        }
+        composable(route = RadioplayerScreen.RatePlaylist.name) {
+            Layout(
+                content = { RatePlaylistScreen(radioplayerViewModel = radioplayerViewModel) },
+                playerState = playerState,
+                bottomBar = { BottomBarUser(navController = navController) },
+                topBar = { UserTopBar(
+                    onHomeClick = { navController.navigate(RadioplayerScreen.Radioplayer.name) },
+                    onLoginClick = { navController.navigate(RadioplayerScreen.Login.name) },
+                ) },
+                onTogglePlayer = { radioplayerViewModel.toggleMediaplayer() }
+            )
+        }
+        composable(route = RadioplayerScreen.RateModeration.name) {
+            Layout(
+                content = { RateModerationScreen(radioplayerViewModel = radioplayerViewModel) },
                 playerState = playerState,
                 bottomBar = { BottomBarUser(navController = navController) },
                 topBar = { UserTopBar(
@@ -186,7 +212,7 @@ fun RadioplayerApp(
 @Composable
 fun BottomBarUser(navController: NavHostController) {
     UserBottomBar(
-        onFeedbackClick = { navController.navigate(RadioplayerScreen.UserFeedback.name) },
+        onModerationClick = { navController.navigate(RadioplayerScreen.Moderation.name) },
         onPlaylistClick = { navController.navigate(RadioplayerScreen.Playlist.name) },
         onRequestClick = { navController.navigate(RadioplayerScreen.UserRequest.name) },
     )

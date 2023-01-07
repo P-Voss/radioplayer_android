@@ -2,8 +2,6 @@ package com.example.radioplayer.ui.layout.screen.user
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.StarRate
@@ -12,12 +10,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.example.radioplayer.entity.Playlist
-import com.example.radioplayer.entity.Song
+import com.example.radioplayer.entity.User
 
 
 @Composable
-fun PlaylistScreen(playlist: Playlist, onRate: () -> Unit) {
+fun ModerationScreen(moderator: User, onRate: () -> Unit) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -29,12 +26,12 @@ fun PlaylistScreen(playlist: Playlist, onRate: () -> Unit) {
             modifier = Modifier
                 .fillMaxSize()
                 .padding(24.dp),
-            verticalArrangement = Arrangement.spacedBy(24.dp),
+            verticalArrangement = Arrangement.spacedBy(12.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         )
         {
             Text(
-                text = "Unsere aktuelle Playlist",
+                text = moderator.fullname,
                 style = MaterialTheme.typography.h1,
                 textAlign = TextAlign.Center,
                 modifier = Modifier.fillMaxWidth()
@@ -42,12 +39,14 @@ fun PlaylistScreen(playlist: Playlist, onRate: () -> Unit) {
 
             IconButton(
                 onClick = { onRate() },
-                Modifier.background(color = MaterialTheme.colors.surface)
+                Modifier
+                    .background(color = MaterialTheme.colors.surface)
                     .fillMaxWidth()
             ) {
                 Row(
                     horizontalArrangement = Arrangement.SpaceBetween,
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier
+                        .fillMaxWidth()
                         .padding(12.dp)
                 ) {
                     Text(text = "Dein Feedback!")
@@ -61,52 +60,36 @@ fun PlaylistScreen(playlist: Playlist, onRate: () -> Unit) {
                 }
             }
 
-            LazyColumn(
-                modifier = Modifier
-                    .fillMaxSize(),
-                verticalArrangement = Arrangement.spacedBy(8.dp),
-            )
-            {
-                items(playlist.recentSongs.reversed()) {
-                        item: Song -> ListEntry(song = item)
-                }
+            Card {
+                Text(text = "Mein Motto: " + moderator.motto, modifier = Modifier.padding(12.dp))
             }
-        }
-    }
-}
 
-@Composable
-private fun ListEntry(song: Song) {
-    Card (
-        modifier = Modifier
-            .fillMaxWidth(),
-        elevation = 12.dp
-    )
-    {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(12.dp),
-            verticalArrangement = Arrangement.spacedBy(12.dp)
-        ) {
-            Text(
-                text = song.title,
-                style = MaterialTheme.typography.h2,
-                modifier = Modifier.fillMaxWidth()
-            )
+            Card {
+                Text(text = moderator.info, modifier = Modifier.padding(12.dp))
+            }
 
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                Text(
-                    text = song.artist + " (" + song.year + ")",
-                    style = MaterialTheme.typography.h3
-                )
-                Text(
-                    text = song.getStartTime(),
-                    style = MaterialTheme.typography.body1
-                )
+            Card {
+                Column(
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text(text = "Social Media", style = MaterialTheme.typography.h2)
+
+                    Row(
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Text(text = "Twitter", style = MaterialTheme.typography.body2)
+                        Text(text = moderator.twitterHandle, style = MaterialTheme.typography.body2)
+                    }
+                    Row(
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Text(text = "Instagram", style = MaterialTheme.typography.body2)
+                        Text(text = moderator.instagram, style = MaterialTheme.typography.body2)
+                    }
+
+                }
             }
         }
     }

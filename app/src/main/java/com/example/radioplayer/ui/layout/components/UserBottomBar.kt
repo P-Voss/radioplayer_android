@@ -1,23 +1,18 @@
 package com.example.radioplayer.ui.layout.components
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-
 
 @Composable
 fun UserBottomBar(
     onPlaylistClick: () -> Unit,
     onRequestClick: () -> Unit,
-    onFeedbackClick: () -> Unit,
+    onModerationClick: () -> Unit,
 ) {
     BottomAppBar(
         elevation = 12.dp,
@@ -41,13 +36,13 @@ fun UserBottomBar(
             )
             BottomNavigationItem(
                 selected = false,
-                onClick = { onFeedbackClick() },
-                icon = { Icon(imageVector = Icons.Filled.StarRate, contentDescription = "Bewertung")},
-                label = { Text(text = "Bewertung") }
+                onClick = { onModerationClick() },
+                icon = { Icon(imageVector = Icons.Filled.SupportAgent, contentDescription = "Moderation")},
+                label = { Text(text = "Moderation") }
             )
             BottomNavigationItem(
                 selected = false,
-                onClick = { onFeedbackClick() },
+                onClick = {  },
                 icon = { Icon(imageVector = Icons.Filled.Info, contentDescription = "Info")},
                 label = { Text(text = "Info") },
                 enabled = false
