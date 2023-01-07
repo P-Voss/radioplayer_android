@@ -28,7 +28,6 @@ import kotlin.math.roundToInt
 fun RadioplayerScreen(
     radioplayerViewModel: RadioplayerViewModel
 ) {
-    val playerState = radioplayerViewModel.playerState
     val currentSong by radioplayerViewModel.currentSong.collectAsState()
     val playlist by radioplayerViewModel.playlist.collectAsState()
     var progress by remember {
@@ -51,7 +50,14 @@ fun RadioplayerScreen(
                     .padding(24.dp)
             )
             {
-                Text(text = "Aktuelle Playlist: " + playlist.theme, style = MaterialTheme.typography.h2)
+
+                Text(text = stringResource(R.string.playlist_moderation_label), style = MaterialTheme.typography.h2)
+                Text(
+                    text = playlist.moderator.fullname,
+                    style = MaterialTheme.typography.h1,
+                    modifier = Modifier.fillMaxWidth(),
+                    textAlign = TextAlign.Center
+                )
 
                 Spacer(modifier = Modifier.height(40.dp))
 
@@ -60,7 +66,7 @@ fun RadioplayerScreen(
                     modifier = Modifier.fillMaxWidth(),
                     contentScale = ContentScale.Fit
                 )
-                Spacer(modifier = Modifier.height(24.dp))
+                Spacer(modifier = Modifier.height(40.dp))
                 Text(
                     text = currentSong.title + " (" + currentSong.year + ")",
                     style = MaterialTheme.typography.body1
@@ -90,6 +96,11 @@ fun RadioplayerScreen(
                         modifier = Modifier.fillMaxWidth()
                     )
                 }
+                Spacer(modifier = Modifier.height(40.dp))
+                Text(text = stringResource(R.string.playlist_current_playlist_label) + playlist.theme, style = MaterialTheme.typography.h2)
+
+                Spacer(modifier = Modifier.height(20.dp))
+                Text(text = playlist.description, style = MaterialTheme.typography.h3)
             }
         }
     }
