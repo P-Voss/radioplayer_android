@@ -20,7 +20,11 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import retrofit2.await
-import java.util.Date
+import java.time.LocalDateTime
+import java.time.ZoneId
+import java.time.ZoneOffset
+import java.time.ZonedDateTime
+import java.util.*
 
 private const val TAG = "RadioplayerViewModel"
 
@@ -115,25 +119,26 @@ class RadioplayerViewModel: ViewModel() {
         viewModelScope.launch {
             timerIsActive = true
 
-            val currentDate = Date()
-            timer = object : CountDownTimer(currentSong.value.endDateTime!!.time - currentDate.time, 1000) {
+            timer = object : CountDownTimer((duration * 1000).toLong(), 1000) {
                 override fun onTick(millisUntilFinished: Long) {
                     val remainingDuration = currentSong.value.remainingDuration - 1
                     _currentSong.update { currentState ->
                         currentState.copy(remainingDuration = remainingDuration)
                     }
+                    if (millisUntilFinished <= 1400) {
+                        Log.d(TAG, "About to call for an Update")
+                        updateCurrentInformation {
+                            if (playerState == PlayerState.ACTIVE) {
+                                stopMediaplayer()
+                                startMediaplayer()
+                            }
+                            loadCurrentInformation()
+                        }
+                    }
                 }
 
                 override fun onFinish() {
-                    Log.d(TAG, "About to call for an Update")
 
-                    updateCurrentInformation {
-                        if (playerState == PlayerState.ACTIVE) {
-                            stopMediaplayer()
-                            startMediaplayer()
-                        }
-                        loadCurrentInformation()
-                    }
                 }
             }
             (timer as CountDownTimer).start()
