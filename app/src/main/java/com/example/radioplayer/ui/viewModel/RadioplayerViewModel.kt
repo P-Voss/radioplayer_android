@@ -14,20 +14,13 @@ import com.example.radioplayer.entity.Feedback
 import com.example.radioplayer.entity.Playlist
 import com.example.radioplayer.entity.Song
 import com.example.radioplayer.network.RadioplayerApi
-import com.example.radioplayer.network.RadioplayerApiService
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import retrofit2.await
-import java.sql.Time
-import java.text.SimpleDateFormat
 import java.util.Date
-import java.util.Timer
-import java.util.TimerTask
-import kotlin.concurrent.timerTask
 
 private const val TAG = "RadioplayerViewModel"
 
@@ -35,7 +28,7 @@ class RadioplayerViewModel: ViewModel() {
 
     private var mediaPlayer: MediaPlayer = MediaPlayer()
 
-    private var timer: Timer = Timer()
+    private var timer: CountDownTimer? = null
 
     private var timerIsActive = false
 
@@ -48,8 +41,7 @@ class RadioplayerViewModel: ViewModel() {
     var playerState by mutableStateOf(PlayerState.INACTIVE)
         private set
 
-    var currentSongInitialTimestamp: Int = 0
-        private set
+    private var currentSongInitialTimestamp: Int = 0
 
     private fun startMediaplayer() {
         Log.d(TAG, "Start Mediaplayer")
@@ -74,7 +66,6 @@ class RadioplayerViewModel: ViewModel() {
             it.start()
             it.seekTo((currentSong.value.lengthInSeconds - currentSong.value.remainingDuration) * 1000)
             playerState = PlayerState.ACTIVE
-
         })
     }
 
@@ -91,6 +82,13 @@ class RadioplayerViewModel: ViewModel() {
         playerState = PlayerState.INACTIVE
     }
 
+    fun stopTimer() {
+        if (timerIsActive) {
+            timer?.cancel()
+            timerIsActive = false
+        }
+    }
+
     fun toggleMediaplayer() {
         Log.d(TAG, "Toggle Mediaplayer")
         Log.d(TAG, playerState.name)
@@ -103,17 +101,22 @@ class RadioplayerViewModel: ViewModel() {
 
 
     fun initiateRadioplayer() {
+        stopMediaplayer()
+        stopTimer()
         updateCurrentInformation{loadCurrentInformation()}
     }
 
     private fun loadCurrentInformation() {
         val duration = currentSong.value.remainingDuration
         Log.d(TAG, duration.toString())
+        if (timerIsActive) {
+            return
+        }
         viewModelScope.launch {
             timerIsActive = true
 
             val currentDate = Date()
-            val countDownTimer = object : CountDownTimer(currentSong.value.endDateTime!!.time - currentDate.time, 1000) {
+            timer = object : CountDownTimer(currentSong.value.endDateTime!!.time - currentDate.time, 1000) {
                 override fun onTick(millisUntilFinished: Long) {
                     val remainingDuration = currentSong.value.remainingDuration - 1
                     _currentSong.update { currentState ->
@@ -133,7 +136,7 @@ class RadioplayerViewModel: ViewModel() {
                     }
                 }
             }
-            countDownTimer.start()
+            (timer as CountDownTimer).start()
         }
     }
 
@@ -141,14 +144,11 @@ class RadioplayerViewModel: ViewModel() {
         Log.d(TAG, "Calling Update")
         Log.d(TAG, "Timer is active: " + timerIsActive)
         if (timerIsActive) {
-            timer.cancel()
+            timer?.cancel()
             timerIsActive = false
         }
         viewModelScope.launch {
-            Log.d(TAG, "Attempting Request")
             val result = RadioplayerApi.retrofitService.getCurrentInformation().await()
-            Log.d(TAG, "Attempting Request")
-            Log.d(TAG, result.toString())
             if (result.success) {
                 _playlist.value = result.playlist
                 _currentSong.value = result.currentSong
@@ -163,10 +163,7 @@ class RadioplayerViewModel: ViewModel() {
     fun sendPlaylistFeedback(score: Int, comment: String = "", username: String = "", onCompleted: () -> Unit) {
         val payload = Feedback(score = score, comment = comment, username = normalizeUsername(username))
         viewModelScope.launch {
-            Log.d(TAG, "Attempting Request")
             val result = RadioplayerApi.retrofitService.postPlaylistFeedback(payload).await()
-            Log.d(TAG, "Attempting Request")
-            Log.d(TAG, result.toString())
             if (result.success) {
                 onCompleted()
             }
@@ -176,10 +173,7 @@ class RadioplayerViewModel: ViewModel() {
     fun sendModerationFeedback(score: Int, comment: String = "", username: String = "", onCompleted: () -> Unit) {
         val payload = Feedback(score = score, comment = comment, username = normalizeUsername(username))
         viewModelScope.launch {
-            Log.d(TAG, "Attempting Request")
             val result = RadioplayerApi.retrofitService.postModerationFeedback(payload).await()
-            Log.d(TAG, "Attempting Request")
-            Log.d(TAG, result.toString())
             if (result.success) {
                 onCompleted()
             }

@@ -16,13 +16,12 @@ class MainActivity : ComponentActivity() {
 
 
     private val radioplayerViewModel: RadioplayerViewModel by viewModels()
+    private val moderatorViewModel: ModeratorViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         radioplayerViewModel.initiateRadioplayer()
-
-        val moderatorViewModel: ModeratorViewModel by viewModels()
 
         setContent {
             RadioplayerTheme {
@@ -43,24 +42,61 @@ class MainActivity : ComponentActivity() {
     override fun onPause() {
         super.onPause()
         radioplayerViewModel.stopMediaplayer()
+        radioplayerViewModel.stopTimer()
     }
 
     override fun onStop() {
         super.onStop()
         radioplayerViewModel.stopMediaplayer()
+        radioplayerViewModel.stopTimer()
     }
 
     override fun onDestroy() {
         super.onDestroy()
         radioplayerViewModel.stopMediaplayer()
+        radioplayerViewModel.stopTimer()
     }
 
     override fun onRestart() {
         super.onRestart()
+        radioplayerViewModel.stopTimer()
+        radioplayerViewModel.initiateRadioplayer()
+
+        setContent {
+            RadioplayerTheme {
+                // A surface container using the 'background' color from the theme
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colors.background
+                ) {
+                    RadioplayerApp(
+                        moderatorViewModel = moderatorViewModel,
+                        radioplayerViewModel = radioplayerViewModel
+                    )
+                }
+            }
+        }
     }
 
     override fun onResume() {
         super.onResume()
+        radioplayerViewModel.stopTimer()
+        radioplayerViewModel.initiateRadioplayer()
+
+        setContent {
+            RadioplayerTheme {
+                // A surface container using the 'background' color from the theme
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colors.background
+                ) {
+                    RadioplayerApp(
+                        moderatorViewModel = moderatorViewModel,
+                        radioplayerViewModel = radioplayerViewModel
+                    )
+                }
+            }
+        }
     }
 
 }
