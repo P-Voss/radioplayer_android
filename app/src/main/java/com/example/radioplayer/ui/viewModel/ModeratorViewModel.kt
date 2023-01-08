@@ -1,6 +1,6 @@
 package com.example.radioplayer.ui.viewModel
 
-import android.nfc.Tag
+import android.os.CountDownTimer
 import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -19,7 +19,6 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import retrofit2.await
-import java.util.Date
 
 class ModeratorViewModel: ViewModel() {
 
@@ -44,10 +43,6 @@ class ModeratorViewModel: ViewModel() {
     var passwordInput by mutableStateOf("")
         private set
 
-    fun isLoggedIn(): Boolean {
-        return user.value.loginState === LoginState.SIGNED_IN
-    }
-
     fun updateLoginname(name: String) {
         loginnameInput = name
     }
@@ -62,22 +57,18 @@ class ModeratorViewModel: ViewModel() {
         onDashboardUpdate: (String) -> Unit
     ) {
         if (loginnameInput == "" || passwordInput == "") {
-//            return
+            return
         }
 
         val payload = LoginRequest(
             username = loginnameInput,
             password = passwordInput
         )
-        Log.d("ModeratorViewModel", payload.toString())
 
         viewModelScope.launch {
             try {
-                Log.d("ModeratorViewModel", "Attempting Request")
                 val result = RadioplayerApi.retrofitService.login(payload).await()
-                Log.d("ModeratorViewModel", "Executed Request")
 
-                Log.d("ModeratorViewModel", result.toString())
                 if (result.success) {
                     _user.update { currentState ->
                         currentState.copy(
@@ -101,13 +92,8 @@ class ModeratorViewModel: ViewModel() {
     private fun refreshDashboard(onDashboardUpdate: (String) -> Unit) {
         viewModelScope.launch {
             try {
-                Log.d("ModeratorViewModel", "Attempting Request")
                 val result = RadioplayerApi.retrofitService.loadDashboard().await()
-                Log.d("ModeratorViewModel", "Executed Request")
-
-                Log.d("ModeratorViewModel", result.toString())
                 if (result.success) {
-
                     if (result.playlistFeedback.isNotEmpty()) {
                         val playlistFeedback = result.playlistFeedback
                         if (playlistFeedback.first().datetime.time.toFloat() > mostRecentPlaylistFeedback) {
@@ -115,7 +101,7 @@ class ModeratorViewModel: ViewModel() {
                             newFeedback.addAll(0, playlistFeedback)
                             _playlistFeedback.value = newFeedback
 
-                            mostRecentPlaylistFeedback = playlistFeedback.last().datetime.time.toFloat()
+                            mostRecentPlaylistFeedback = playlistFeedback.first().datetime.time.toFloat()
                             onDashboardUpdate("Neues Feedback zur Playlist erhalten!")
                         }
                     }
@@ -127,7 +113,7 @@ class ModeratorViewModel: ViewModel() {
                             newFeedback.addAll(0, moderationFeedback)
                             _moderationFeedback.value = newFeedback
 
-                            mostRecentModerationFeedback = moderationFeedback.last().datetime.time.toFloat()
+                            mostRecentModerationFeedback = moderationFeedback.first().datetime.time.toFloat()
                             onDashboardUpdate("Neues Feedback zur Moderation erhalten!")
                         }
                     }
@@ -139,15 +125,36 @@ class ModeratorViewModel: ViewModel() {
                             newRequests.addAll(0, songRequests)
                             _songrequests.value = newRequests
 
-                            mostRecentSongRequest = songRequests.last().datetime.time.toFloat()
+                            mostRecentSongRequest = songRequests.first().datetime.time.toFloat()
                             onDashboardUpdate("Neuer Wunsch!")
                         }
                     }
+
+                    startTimer(onDashboardUpdate)
                 }
             } catch (e: Exception) {
                 Log.d("ModeratorViewModel", "Caught Exception: " + e.message)
             }
         }
+    }
+
+    private fun startTimer(onDashboardUpdate: (String) -> Unit) {
+        if(user.value.loginState === LoginState.SIGNED_OFF) {
+            return
+        }
+
+        val countDownTimer = object : CountDownTimer(5000, 1000) {
+            override fun onTick(millisUntilFinished: Long) {
+
+            }
+
+            override fun onFinish() {
+                Log.d("ModeratorViewModel", "About to Refresh Dashboard")
+                refreshDashboard(onDashboardUpdate)
+            }
+        }
+        Log.d("ModeratorViewModel", "Starting new timer")
+        countDownTimer.start()
     }
 
     fun logout(onLogout: () -> Unit) {

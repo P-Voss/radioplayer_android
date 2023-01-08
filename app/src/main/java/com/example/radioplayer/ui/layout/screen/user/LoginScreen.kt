@@ -28,8 +28,10 @@ fun LoginScreen(
 ) {
 
     val context = LocalContext.current
-    val onDashboardUpdate = { label: String -> Toast.makeText(context, label, Toast.LENGTH_SHORT) }
-//    val toast = Toast.makeText(context, stringResource(R.string.task_oncreate_toast), Toast.LENGTH_SHORT)
+    val onDashboardUpdate = { label: String ->
+        val toast = Toast.makeText(context, label, Toast.LENGTH_SHORT)
+        toast.show()
+    }
     val focusManager = LocalFocusManager.current
 
     Card(
@@ -61,7 +63,9 @@ fun LoginScreen(
                 keyboardActions = KeyboardActions(
                     onNext = { focusManager.moveFocus(FocusDirection.Down) }
                 ),
-                modifier = Modifier.fillMaxWidth().background(color = Color.White),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .background(color = Color.White),
                 colors = TextFieldDefaults.textFieldColors(textColor = Color.Black)
             )
 
@@ -83,11 +87,13 @@ fun LoginScreen(
                     onDone = {
                         moderatorViewModel.attemptLogin(
                             onLogin = onLogin,
-                            onDashboardUpdate = { label: String -> onDashboardUpdate(label) })
+                            onDashboardUpdate = { onDashboardUpdate(it) })
                     }
                 ),
                 visualTransformation = PasswordVisualTransformation(),
-                modifier = Modifier.fillMaxWidth().background(color = Color.White),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .background(color = Color.White),
                 colors = TextFieldDefaults.textFieldColors(textColor = Color.Black)
             )
             Spacer(modifier = Modifier.height(8.dp))
@@ -96,7 +102,7 @@ fun LoginScreen(
                 onClick = {
                     moderatorViewModel.attemptLogin(
                         onLogin = onLogin,
-                        onDashboardUpdate = { label: String -> onDashboardUpdate(label) })
+                        onDashboardUpdate = { onDashboardUpdate(it) })
                 }
             )
             {
