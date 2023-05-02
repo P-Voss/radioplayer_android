@@ -34,7 +34,6 @@ fun Layout(
                             Icons.Filled.Stop,
                             contentDescription = "",
                             tint = MaterialTheme.colors.secondaryVariant,
-//                            tint = MaterialTheme.colors.primaryVariant,
                             modifier = Modifier.background(color = MaterialTheme.colors.error.copy(alpha = 0.0f))
                         )
                     } else {
@@ -42,7 +41,6 @@ fun Layout(
                             Icons.Filled.PlayArrow,
                             contentDescription = "",
                             tint = MaterialTheme.colors.secondaryVariant,
-//                            tint = MaterialTheme.colors.primaryVariant,
                             modifier = Modifier.background(color = MaterialTheme.colors.surface.copy(alpha = 0.0f))
                         )
                     }

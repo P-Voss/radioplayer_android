@@ -1,7 +1,7 @@
 package com.example.radioplayer.ui.theme.colors
 
 import androidx.compose.material.Colors
-import androidx.compose.material.lightColors
+import androidx.compose.material.darkColors
 import androidx.compose.ui.graphics.Color
 
 
@@ -13,19 +13,17 @@ object DarkColors {
 
     val SecondaryColor = Color(0xFF060662)
     val SecondaryLightColor = Color(0xFF37a8a8)
-    val SecondaryDarkColor = Color(0xFF1d3137)
 
     val PrimaryTextColor = Color(0xFFF3EDED)
     val SecondaryTextColor = Color(0xFFF3EDED)
 
 
     fun getMainPalette(): Colors {
-        return lightColors(
+        return darkColors(
             primary = PrimaryColor,
             primaryVariant = PrimaryLightColor.copy(alpha = 0.7f),
             secondary = SecondaryColor,
             secondaryVariant = SecondaryLightColor,
-//            surface = PrimaryDarkColor,
             surface = PrimaryDarkColor,
             onSurface = PrimaryTextColor,
             onPrimary = PrimaryTextColor,

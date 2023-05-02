@@ -116,7 +116,7 @@ fun DashboardScreen(
                     )
                     {
                         Text(
-                            text = "Playlist Bewertungen",
+                            text = "Moderation Bewertungen",
                             style = MaterialTheme.typography.h2,
                             textAlign = TextAlign.Center,
                             modifier = Modifier.fillMaxWidth()
