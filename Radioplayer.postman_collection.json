@@ -1,0 +1,302 @@
+{
+	"info": {
+		"_postman_id": "d551ab33-5046-4c48-932e-c3a68056a92b",
+		"name": "Radioplayer",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "14569989"
+	},
+	"item": [
+		{
+			"name": "Listener",
+			"item": [
+				{
+					"name": "Songrequests",
+					"item": [
+						{
+							"name": "RocknRoll",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"Markus aus Hamburg\",\r\n    \"playlist\": 6,\r\n    \"title\": \"I love Rock'n'Roll\",\r\n    \"artist\": \"Ist mir gerade entfallen, Sorry!!!\",\r\n    \"comment\": \"Der Titel geht einfach immer, wäre mega wenn ihr den spielen könntet!\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseurl}}/radio/songrequest",
+									"host": [
+										"{{baseurl}}"
+									],
+									"path": [
+										"radio",
+										"songrequest"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "XmasRocks",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"Xmas Rocks\",\r\n    \"playlist\": 6,\r\n    \"title\": \"Last Christmas\",\r\n    \"artist\": \"Wham\",\r\n    \"comment\": \"Der muss einfach mal sein :)\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseurl}}/radio/songrequest",
+									"host": [
+										"{{baseurl}}"
+									],
+									"path": [
+										"radio",
+										"songrequest"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Rap",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"Nils\",\r\n    \"playlist\": 6,\r\n    \"title\": \"Lose yourself\",\r\n    \"artist\": \"Eminem\",\r\n    \"comment\": \"Geht auch gut ab\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseurl}}/radio/songrequest",
+									"host": [
+										"{{baseurl}}"
+									],
+									"path": [
+										"radio",
+										"songrequest"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Add Playlist Feedback",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"\",\r\n    \"playlist\": 6,\r\n    \"score\": 5,\r\n    \"comment\": \"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/radio/playlist/feedback",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"radio",
+								"playlist",
+								"feedback"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Moderation Feedback",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"Rockfan Ahoi\",\r\n    \"playlist\": 6,\r\n    \"score\": 5,\r\n    \"comment\": \"Der Lautmusik rockt die Bude. You go man!\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/radio/moderation/feedback",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"radio",
+								"moderation",
+								"feedback"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Moderator",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"Tester\",\r\n    \"password\": \"Tester\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/radio/moderation/login",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"radio",
+								"moderation",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Dashboard",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}/radio/moderation/dashboard",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"radio",
+								"moderation",
+								"dashboard"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Accept Songrequest",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"requestId\": 4,\r\n    \"songId\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/radio/songrequest/accept",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"radio",
+								"songrequest",
+								"accept"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Current Radioplayer",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseurl}}/radio",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"radio"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Recent Playlist",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseurl}}/radio/playlist",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"radio",
+						"playlist"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseurl",
+			"value": "https://test-pv.de",
+			"type": "string"
+		}
+	]
+}
