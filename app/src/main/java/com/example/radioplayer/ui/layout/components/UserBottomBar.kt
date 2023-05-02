@@ -13,6 +13,7 @@ fun UserBottomBar(
     onPlaylistClick: () -> Unit,
     onRequestClick: () -> Unit,
     onModerationClick: () -> Unit,
+    onInfoClick: () -> Unit,
 ) {
     BottomAppBar(
         elevation = 12.dp,
@@ -42,10 +43,9 @@ fun UserBottomBar(
             )
             BottomNavigationItem(
                 selected = false,
-                onClick = {  },
+                onClick = { onInfoClick() },
                 icon = { Icon(imageVector = Icons.Filled.Info, contentDescription = "Info")},
-                label = { Text(text = "Info") },
-                enabled = false
+                label = { Text(text = "Info") }
             )
         }
     }

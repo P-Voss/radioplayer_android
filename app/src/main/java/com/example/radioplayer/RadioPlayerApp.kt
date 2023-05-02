@@ -33,12 +33,14 @@ enum class RadioplayerScreen(@StringRes val title: Int) {
     RateModeration(title = R.string.router_ratemoderation),
     UserRequest(title = R.string.router_userrequest),
     Playlist(title = R.string.router_playlist),
+    Impressum(title = R.string.router_impressum),
     Moderation(title = R.string.router_moderation),
     Login(title = R.string.route_login),
     ModeratorDashboard(title = R.string.route_moderatordashboard),
     ModeratorFeedback(title = R.string.route_moderatorfeedback),
     PlaylistFeedback(title = R.string.route_playlistfeedback),
     ModeratorRequest(title = R.string.route_moderatorrequest),
+    ModeratorImpressum(title = R.string.route_moderatorimpressum),
 }
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
@@ -84,6 +86,18 @@ fun RadioplayerApp(
         composable(route = RadioplayerScreen.Playlist.name) {
             Layout(
                 content = { PlaylistScreen(playlist = playlist, onRate = {navController.navigate(RadioplayerScreen.RatePlaylist.name)}) },
+                playerState = playerState,
+                bottomBar = { BottomBarUser(navController = navController) },
+                topBar = { UserTopBar(
+                    onHomeClick = { navController.navigate(RadioplayerScreen.Radioplayer.name) },
+                    onLoginClick = { navController.navigate(RadioplayerScreen.Login.name) },
+                ) },
+                onTogglePlayer = { radioplayerViewModel.toggleMediaplayer() }
+            )
+        }
+        composable(route = RadioplayerScreen.Impressum.name) {
+            Layout(
+                content = { InfoScreen() },
                 playerState = playerState,
                 bottomBar = { BottomBarUser(navController = navController) },
                 topBar = { UserTopBar(
@@ -206,6 +220,18 @@ fun RadioplayerApp(
                 onTogglePlayer = { radioplayerViewModel.toggleMediaplayer() }
             )
         }
+        composable(route = RadioplayerScreen.ModeratorImpressum.name) {
+            Layout(
+                content = { InfoScreen() },
+                playerState = playerState,
+                bottomBar = { BottomBarMod(navController = navController) },
+                topBar = { ModeratorTopBar(
+                    onDashboardClick = { navController.navigate(RadioplayerScreen.ModeratorDashboard.name) },
+                    onLogoutClick = { moderatorViewModel.logout { navController.navigate(RadioplayerScreen.Radioplayer.name) } },
+                ) },
+                onTogglePlayer = { radioplayerViewModel.toggleMediaplayer() }
+            )
+        }
     }
 }
 
@@ -215,6 +241,7 @@ fun BottomBarUser(navController: NavHostController) {
         onModerationClick = { navController.navigate(RadioplayerScreen.Moderation.name) },
         onPlaylistClick = { navController.navigate(RadioplayerScreen.Playlist.name) },
         onRequestClick = { navController.navigate(RadioplayerScreen.UserRequest.name) },
+        onInfoClick = { navController.navigate(RadioplayerScreen.Impressum.name) },
     )
 }
 
@@ -224,5 +251,6 @@ fun BottomBarMod(navController: NavHostController) {
         onModerationFeedbackClick = { navController.navigate(RadioplayerScreen.ModeratorFeedback.name) },
         onPlaylistFeedbackClick = { navController.navigate(RadioplayerScreen.PlaylistFeedback.name) },
         onRequestClick = { navController.navigate(RadioplayerScreen.ModeratorRequest.name) },
+        onInfoClick = { navController.navigate(RadioplayerScreen.ModeratorImpressum.name) },
     )
 }

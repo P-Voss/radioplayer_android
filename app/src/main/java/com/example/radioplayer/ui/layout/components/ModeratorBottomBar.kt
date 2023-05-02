@@ -13,6 +13,7 @@ fun ModeratorBottomBar(
     onModerationFeedbackClick: () -> Unit,
     onPlaylistFeedbackClick: () -> Unit,
     onRequestClick: () -> Unit,
+    onInfoClick: () -> Unit,
 ) {
 
     BottomAppBar(
@@ -43,10 +44,9 @@ fun ModeratorBottomBar(
             )
             BottomNavigationItem(
                 selected = false,
-                onClick = { onModerationFeedbackClick() },
+                onClick = { onInfoClick() },
                 icon = { Icon(imageVector = Icons.Filled.Info, contentDescription = "Info") },
-                label = { Text(text = "Info") },
-                enabled = false
+                label = { Text(text = "Info") }
             )
         }
     }
